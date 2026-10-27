@@ -1,0 +1,123 @@
+---
+import Icon from './Icon.astro';
+import { formatPrice, offers, ui, whatsappUrl } from '../data/site';
+---
+
+<section class="section section--tinted" id={offers.id} aria-labelledby="bonos-title">
+  <div class="container">
+    <header class="section__header reveal">
+      <p class="eyebrow">{offers.eyebrow}</p>
+      <h2 id="bonos-title">{offers.title}</h2>
+      <p class="lead">{offers.intro}</p>
+    </header>
+
+    <ul role="list" class="offers">
+      {
+        offers.items.map((offer) => (
+          <li class:list={['offer', 'reveal', { 'offer--featured': offer.featured }]}>
+            {offer.badge && <p class="offer__badge">{offer.badge}</p>}
+            <h3 class="offer__title">{offer.title}</h3>
+            <p class="offer__price">
+              <span class="offer__amount">{formatPrice(offer.price)}</span>
+              {offer.previousPrice && (
+                <s class="offer__previous">
+                  <span class="visually-hidden">{ui.previousPrice} </span>
+                  {formatPrice(offer.previousPrice)}
+                </s>
+              )}
+              {offer.savings && <span class="offer__savings">{offer.savings}</span>}
+            </p>
+            <p class="offer__description">{offer.description}</p>
+            <a
+              class:list={['button', { 'button--light': offer.featured }]}
+              href={whatsappUrl(offer.whatsappMessage)}
+              target="_blank"
+              rel="noopener"
+              aria-label={`${ui.offerAria.replace('{accion}', offer.cta).replace('{oferta}', offer.title)} ${ui.newTab}`}
+            >
+              <Icon name="whatsapp" />
+              {offer.cta}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .offers {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .offer {
+    display: grid;
+    grid-template-rows: auto auto auto 1fr auto;
+    gap: var(--space-sm);
+    padding: var(--space-xl) var(--space-lg);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .offer .button {
+    margin-top: var(--space-sm);
+  }
+
+  .offer--featured {
+    background: var(--color-text);
+    color: var(--color-bg);
+  }
+
+  .offer__badge {
+    justify-self: start;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-accent);
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .offer__title {
+    font-size: var(--text-xl);
+  }
+
+  .offer__price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2xs) var(--space-sm);
+  }
+
+  .offer__amount {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    line-height: 1;
+  }
+
+  .offer__previous {
+    font-size: var(--text-lg);
+    opacity: 0.8;
+  }
+
+  .offer__savings {
+    color: var(--color-accent-text);
+    font-weight: 600;
+  }
+
+  .offer__description {
+    color: var(--color-text-muted);
+  }
+
+  .offer--featured .offer__description {
+    color: var(--color-secondary);
+  }
+
+  @media (min-width: 56rem) {
+    .offers {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

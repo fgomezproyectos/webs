@@ -1,0 +1,109 @@
+---
+import { address, business, contact, footer, ui } from '../data/site';
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <a class="footer__logo" href="/" aria-label={ui.homeLabel}>{business.logo}</a>
+      <p>{footer.tagline}</p>
+    </div>
+
+    <div class="footer__contact">
+      <p>{address.display}</p>
+      <p>
+        <a href={contact.phoneHref}>{contact.phoneDisplay}</a>
+        {' · '}
+        <a href={contact.emailHref}>{contact.emailDisplay}</a>
+      </p>
+    </div>
+
+    <nav class="footer__legal" aria-label={ui.legalNavLabel}>
+      <ul role="list">
+        {
+          footer.legalLinks.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <p class="footer__copy">{footer.copyright}</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: var(--space-2xl) calc(var(--space-2xl) + 4.5rem);
+    background: var(--color-text);
+    color: var(--color-secondary);
+    font-size: var(--text-sm);
+  }
+
+  .footer__inner {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  .footer__logo {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--color-bg);
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    text-decoration: none;
+  }
+
+  .footer a {
+    color: var(--color-bg);
+  }
+
+  .footer__contact {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .footer__contact a {
+    display: inline-block;
+    padding-block: 0.6rem;
+  }
+
+  .footer__legal ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs) var(--space-lg);
+  }
+
+  .footer__legal a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .footer__copy {
+    padding-top: var(--space-lg);
+    border-top: 1px solid rgb(232 213 204 / 0.25);
+  }
+
+  .footer :focus-visible {
+    outline-color: var(--color-accent);
+  }
+
+  @media (min-width: 48rem) {
+    .footer {
+      padding-bottom: var(--space-2xl);
+    }
+
+    .footer__inner {
+      grid-template-columns: 1.2fr 1fr 1fr;
+      align-items: start;
+    }
+
+    .footer__copy {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

@@ -1,0 +1,36 @@
+---
+import Icon from './Icon.astro';
+import { ui, whatsappUrl } from '../data/site';
+---
+
+<a class="whatsapp-float" href={whatsappUrl()} target="_blank" rel="noopener" aria-label={`${ui.whatsappFloat} ${ui.newTab}`}>
+  <Icon name="whatsapp" size={30} />
+</a>
+
+<style>
+  /* Solo en el móvil. Queda en la esquina, y el pie reserva espacio para que no tape nada. */
+  .whatsapp-float {
+    position: fixed;
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    z-index: 40;
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: var(--color-whatsapp);
+    color: #ffffff;
+    box-shadow: 0 6px 20px rgb(43 37 34 / 0.25);
+  }
+
+  .whatsapp-float:focus-visible {
+    outline-offset: 4px;
+  }
+
+  @media (min-width: 48rem) {
+    .whatsapp-float {
+      display: none;
+    }
+  }
+</style>

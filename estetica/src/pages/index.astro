@@ -1,0 +1,41 @@
+---
+import { getImage } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import TrustBar from '../components/TrustBar.astro';
+import Treatments from '../components/Treatments.astro';
+import Offers from '../components/Offers.astro';
+import WhyUs from '../components/WhyUs.astro';
+import Team from '../components/Team.astro';
+import Reviews from '../components/Reviews.astro';
+import Gallery from '../components/Gallery.astro';
+import Faq from '../components/Faq.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import { seo } from '../data/site';
+import { beautySalonSchema } from '../lib/schema';
+
+const schemaImage = await getImage({ src: seo.image.src, width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 82 });
+const schema = beautySalonSchema(new URL(schemaImage.src, Astro.site).href);
+---
+
+<BaseLayout>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <Header />
+  <main id="contenido">
+    <Hero />
+    <TrustBar />
+    <Treatments />
+    <Offers />
+    <WhyUs />
+    <Team />
+    <Reviews />
+    <Gallery />
+    <Faq />
+    <Contact />
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>

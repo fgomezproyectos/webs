@@ -1,0 +1,57 @@
+---
+import { Picture } from 'astro:assets';
+import { gallery } from '../data/site';
+---
+
+<section class="section section--tinted" id={gallery.id} aria-labelledby="galeria-title">
+  <div class="container">
+    <header class="section__header reveal">
+      <p class="eyebrow">{gallery.eyebrow}</p>
+      <h2 id="galeria-title">{gallery.title}</h2>
+    </header>
+
+    <ul role="list" class="gallery">
+      {
+        gallery.images.map((image) => (
+          <li class="gallery__item reveal">
+            <Picture
+              src={image.src}
+              alt={image.alt}
+              widths={[320, 480, 720, 960]}
+              sizes="(min-width: 64rem) 23rem, (min-width: 40rem) 45vw, calc(100vw - 2rem)"
+              formats={['avif', 'webp']}
+              class="gallery__image"
+            />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .gallery {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .gallery__image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+  }
+
+  @media (min-width: 40rem) {
+    .gallery {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .gallery {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+    }
+  }
+</style>

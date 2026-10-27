@@ -1,0 +1,71 @@
+---
+import Icon from './Icon.astro';
+import { whyUs } from '../data/site';
+---
+
+<section class="section" id={whyUs.id} aria-labelledby="por-que-title">
+  <div class="container">
+    <header class="section__header section__header--center reveal">
+      <p class="eyebrow">{whyUs.eyebrow}</p>
+      <h2 id="por-que-title">{whyUs.title}</h2>
+    </header>
+
+    <ul role="list" class="why">
+      {
+        whyUs.items.map((item) => (
+          <li class="why__item reveal">
+            <span class="why__icon">
+              <Icon name={item.icon} size={28} />
+            </span>
+            <h3 class="why__title">{item.title}</h3>
+            <p class="why__text">{item.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .why {
+    display: grid;
+    gap: var(--space-2xl);
+  }
+
+  .why__item {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-sm);
+    max-width: 22rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .why__icon {
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: var(--space-xs);
+    border-radius: 50%;
+    background: var(--color-secondary-soft);
+    color: var(--color-accent-text);
+    box-shadow: inset 0 0 0 1px var(--color-secondary);
+  }
+
+  .why__title {
+    font-size: var(--text-lg);
+    font-weight: 500;
+  }
+
+  .why__text {
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 48rem) {
+    .why {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-xl);
+    }
+  }
+</style>

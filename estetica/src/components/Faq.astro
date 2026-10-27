@@ -1,0 +1,84 @@
+---
+import { faq } from '../data/site';
+---
+
+<section class="section" id={faq.id} aria-labelledby="faq-title">
+  <div class="container faq">
+    <header class="section__header reveal">
+      <p class="eyebrow">{faq.eyebrow}</p>
+      <h2 id="faq-title">{faq.title}</h2>
+    </header>
+
+    <div class="faq__list">
+      {
+        faq.items.map((item) => (
+          <details class="faq__item">
+            <summary class="faq__question">
+              <h3>{item.question}</h3>
+            </summary>
+            <p class="faq__answer">{item.answer}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    max-width: 48rem;
+  }
+
+  .faq__list {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .faq__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    min-height: 3.5rem;
+    padding-block: var(--space-md);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__question h3 {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .faq__question::after {
+    content: '+';
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--color-secondary-soft);
+    font-size: 1.25rem;
+    line-height: 1;
+    transition: transform 0.25s var(--ease);
+  }
+
+  .faq__item[open] .faq__question::after {
+    transform: rotate(45deg);
+  }
+
+  .faq__answer {
+    padding-bottom: var(--space-lg);
+    color: var(--color-text-muted);
+  }
+</style>

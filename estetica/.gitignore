@@ -1,0 +1,17 @@
+# Dependencias
+node_modules/
+
+# Build
+dist/
+.astro/
+
+# Logs
+npm-debug.log*
+
+# Entorno
+.env
+.env.*
+
+# Sistema
+.DS_Store
+Thumbs.db

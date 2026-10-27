@@ -1,0 +1,291 @@
+---
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import { formatPrice, treatments, treatmentWhatsappUrl, ui } from '../data/site';
+---
+
+<section class="section" id={treatments.id} aria-labelledby="tratamientos-title">
+  <div class="container">
+    <header class="section__header reveal">
+      <p class="eyebrow">{treatments.eyebrow}</p>
+      <h2 id="tratamientos-title">{treatments.title}</h2>
+      <p class="lead">{treatments.intro}</p>
+    </header>
+
+    <div class="tabs" data-tabs>
+      <!-- Las pestañas solo aparecen con JavaScript; sin él se ven todas las categorías seguidas. -->
+      <div class="tabs__list" role="tablist" aria-labelledby="tratamientos-title" hidden data-tablist>
+        {
+          treatments.categories.map((category, index) => (
+            <button
+              class="tabs__tab"
+              type="button"
+              role="tab"
+              id={`tab-${category.id}`}
+              aria-controls={`panel-${category.id}`}
+              aria-selected={index === 0 ? 'true' : 'false'}
+              tabindex={index === 0 ? 0 : -1}
+            >
+              {category.label}
+            </button>
+          ))
+        }
+      </div>
+
+      {
+        treatments.categories.map((category) => (
+          <div class="tabs__panel" id={`panel-${category.id}`} data-panel>
+            <h3 class="tabs__heading">{category.label}</h3>
+            <div class="tabs__layout">
+              <Picture
+                src={category.image.src}
+                alt={category.image.alt}
+                widths={[400, 640, 900, 1200]}
+                sizes="(min-width: 64rem) 26rem, (min-width: 48rem) 90vw, calc(100vw - 2rem)"
+                formats={['avif', 'webp']}
+                class="tabs__image"
+              />
+              <ul role="list" class="cards">
+                {category.items.map((item) => (
+                  <li class="card">
+                    <h4 class="card__name">{item.name}</h4>
+                    <p class="card__meta">
+                      <span>
+                        <span class="visually-hidden">{ui.durationLabel}: </span>
+                        {item.duration} {ui.minutes}
+                      </span>
+                      <span class="card__price">
+                        <span class="visually-hidden">{ui.priceLabel}: </span>
+                        {formatPrice(item.price)}
+                      </span>
+                    </p>
+                    <p class="card__benefit">{item.benefit}</p>
+                    <a
+                      class="card__link"
+                      href={treatmentWhatsappUrl(item.name)}
+                      target="_blank"
+                      rel="noopener"
+                      aria-label={`${ui.bookTreatmentAria.replace('{tratamiento}', item.name)} ${ui.newTab}`}
+                    >
+                      {ui.bookTreatment}
+                      <Icon name="arrow" size={18} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="treatments__note">{treatments.note}</p>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-tabs]');
+  const tablist = root?.querySelector<HTMLElement>('[data-tablist]');
+
+  if (root && tablist) {
+    const tabs = Array.from(tablist.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-panel]'));
+
+    panels.forEach((panel, index) => {
+      panel.setAttribute('role', 'tabpanel');
+      panel.setAttribute('aria-labelledby', tabs[index].id);
+      panel.tabIndex = 0;
+    });
+
+    const select = (index: number, focus = false) => {
+      tabs.forEach((tab, i) => {
+        const active = i === index;
+        tab.setAttribute('aria-selected', String(active));
+        tab.tabIndex = active ? 0 : -1;
+        panels[i].hidden = !active;
+      });
+      if (focus) tabs[index].focus();
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => select(index));
+      tab.addEventListener('keydown', (event) => {
+        const last = tabs.length - 1;
+        const next: Record<string, number> = {
+          ArrowRight: index === last ? 0 : index + 1,
+          ArrowLeft: index === 0 ? last : index - 1,
+          Home: 0,
+          End: last,
+        };
+        if (event.key in next) {
+          event.preventDefault();
+          select(next[event.key], true);
+        }
+      });
+    });
+
+    root.classList.add('is-enhanced');
+    tablist.hidden = false;
+    select(0);
+  }
+</script>
+
+<style>
+  .tabs__list {
+    display: flex;
+    gap: var(--space-2xs);
+    width: fit-content;
+    max-width: 100%;
+    margin-bottom: var(--space-xl);
+    padding: var(--space-2xs);
+    overflow-x: auto;
+    border-radius: var(--radius-pill);
+    background: var(--color-secondary-soft);
+  }
+
+  .tabs__list[hidden] {
+    display: none;
+  }
+
+  .tabs__tab {
+    flex: 0 0 auto;
+    min-height: 44px;
+    padding: 0.5rem 1.25rem;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--color-text);
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s var(--ease);
+  }
+
+  .tabs__tab:hover {
+    background: rgb(255 255 255 / 0.6);
+  }
+
+  .tabs__tab[aria-selected='true'] {
+    background: var(--color-button);
+    color: var(--color-button-text);
+  }
+
+  .tabs__panel + .tabs__panel {
+    margin-top: var(--space-2xl);
+  }
+
+  .is-enhanced .tabs__panel + .tabs__panel {
+    margin-top: 0;
+  }
+
+  .tabs__panel:focus-visible {
+    outline-offset: 8px;
+    border-radius: var(--radius-md);
+  }
+
+  .tabs__heading {
+    margin-bottom: var(--space-lg);
+  }
+
+  .is-enhanced .tabs__heading {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .tabs__layout {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .tabs__image {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+  }
+
+  .cards {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .card {
+    display: grid;
+    gap: var(--space-xs);
+    padding: var(--space-lg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+
+  .card__name {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: 500;
+    line-height: 1.25;
+  }
+
+  .card__meta {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-md);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .card__price {
+    color: var(--color-text);
+    font-size: var(--text-lg);
+    font-weight: 600;
+  }
+
+  .card__benefit {
+    color: var(--color-text-muted);
+  }
+
+  .card__link {
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    gap: var(--space-2xs);
+    min-height: 44px;
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+    text-decoration-thickness: 2px;
+  }
+
+  .card__link:hover {
+    text-decoration-color: currentColor;
+  }
+
+  .treatments__note {
+    margin-top: var(--space-xl);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  @media (min-width: 40rem) {
+    .cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .tabs__layout {
+      grid-template-columns: 26rem 1fr;
+      align-items: start;
+      gap: var(--space-2xl);
+    }
+
+    .tabs__image {
+      position: sticky;
+      top: calc(var(--header-height) + var(--space-lg));
+      aspect-ratio: 4 / 5;
+    }
+  }
+</style>

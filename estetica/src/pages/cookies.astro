@@ -1,0 +1,32 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { business, contact } from '../data/site';
+---
+
+<LegalLayout title="Política de cookies" description={`${business.name} no usa cookies. Te explicamos por qué no verás ningún aviso de cookies.`}>
+  <h2>Esta web no usa cookies</h2>
+  <p>
+    Las cookies son pequeños archivos que algunas webs guardan en tu navegador. La normativa (artículo 22.2 de la LSSI)
+    obliga a pedir tu consentimiento para las que no son técnicas, como las de analítica o publicidad.
+  </p>
+  <p>Esta web no instala ninguna cookie, ni propia ni de terceros, porque:</p>
+  <ul>
+    <li>No tiene herramientas de analítica ni publicidad.</li>
+    <li>No incrusta mapas, vídeos ni otros contenidos externos (iframes): el mapa es una imagen con un enlace a Google Maps.</li>
+    <li>No tiene formularios ni zona de usuarios.</li>
+    <li>Las tipografías se sirven desde la propia web, sin conectar con servicios externos.</li>
+  </ul>
+  <p>Por eso no verás ningún aviso o banner de cookies.</p>
+
+  <h2>Enlaces a otros servicios</h2>
+  <p>
+    Si pulsas un enlace a WhatsApp o a Google Maps, saldrás de esta web y esos servicios pueden usar sus propias
+    cookies, según sus políticas.
+  </p>
+
+  <h2>Cambios</h2>
+  <p>
+    Si en el futuro añadimos algún servicio que use cookies, actualizaremos esta página y te pediremos el consentimiento
+    cuando sea necesario. Para cualquier duda, escríbenos a <a href={contact.emailHref}>{contact.emailDisplay}</a>.
+  </p>
+</LegalLayout>
