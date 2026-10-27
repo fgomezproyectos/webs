@@ -97,7 +97,7 @@ export const seo = {
     'Limpieza facial, masajes, presoterapia, manicura y pedicura en Calle de Fuencarral, Madrid. Productos dermatológicos y trato cercano. Reserva por WhatsApp en un minuto.',
   image: {
     src: fotoCompartir,
-    alt: 'Cabina de Lumen Estética con luz natural y tonos cálidos',
+    alt: 'Esteticista aplicando con pincel una mascarilla de arcilla a una clienta tumbada con turbante blanco',
   },
 };
 
@@ -151,7 +151,7 @@ export const hero = {
   secondaryCta: { label: 'Ver tratamientos', href: '#tratamientos' },
   image: {
     src: fotoPortada,
-    alt: 'Esteticista aplicando un tratamiento facial a una clienta tumbada en una cabina luminosa',
+    alt: 'Esteticista aplicando con pincel una mascarilla de arcilla en el rostro de una clienta relajada, con turbante y albornoz blancos',
   } satisfies Foto,
 };
 
@@ -187,7 +187,7 @@ export const treatments = {
       label: 'Facial',
       image: {
         src: fotoFacial,
-        alt: 'Clienta con los ojos cerrados durante una limpieza facial, con la piel recién hidratada',
+        alt: 'Esteticista dando un masaje facial a una clienta tumbada y relajada, tapada con una toalla gris',
       },
       items: [
         { name: 'Limpieza facial profunda', duration: 60, price: 50, benefit: 'Piel limpia, poros afinados y luminosidad' },
@@ -201,7 +201,7 @@ export const treatments = {
       label: 'Corporal',
       image: {
         src: fotoCorporal,
-        alt: 'Manos de una esteticista dando un masaje relajante en la espalda',
+        alt: 'Manos de una esteticista dando un masaje relajante en la espalda, junto a una ventana con luz natural',
       },
       items: [
         { name: 'Masaje relajante', duration: 60, price: 50, benefit: 'Desconectar y soltar tensiones' },
@@ -214,7 +214,7 @@ export const treatments = {
       label: 'Manos y pies',
       image: {
         src: fotoManosPies,
-        alt: 'Manicura en curso: manos cuidadas con uñas en tono nude sobre una toalla clara',
+        alt: 'Mano con manicura en tono rosa nude apoyada sobre una manta blanca de pelo suave',
       },
       items: [
         { name: 'Manicura semipermanente', duration: 45, price: 25, benefit: 'Uñas perfectas durante 2–3 semanas' },
@@ -300,7 +300,7 @@ export const team = {
       quote: 'Cada piel tiene su historia. Mi trabajo es escucharla.',
       photo: {
         src: fotoMarta,
-        alt: 'Retrato de Marta Ruiz, fundadora de Lumen, sonriendo en el centro',
+        alt: 'Retrato de Marta Ruiz, fundadora de Lumen, con el pelo rizado y oscuro, sonriendo a cámara',
       },
     },
     {
@@ -311,7 +311,7 @@ export const team = {
       quote: 'Los detalles marcan la diferencia.',
       photo: {
         src: fotoElena,
-        alt: 'Retrato de Elena Sanz, esteticista de Lumen, con una sonrisa tranquila',
+        alt: 'Retrato de Elena Sanz, esteticista de Lumen, rubia y con camisa gris, con una sonrisa tranquila',
       },
     },
   ] satisfies { name: string; role: string; specialty: string; experience: string; quote: string; photo: Foto }[],
@@ -336,12 +336,12 @@ export const gallery = {
   eyebrow: 'Galería',
   title: 'Así es Lumen por dentro',
   images: [
-    { src: fotoLocal, alt: 'Recepción de Lumen con luz natural, plantas y tonos beige' },
-    { src: fotoCabina, alt: 'Cabina de tratamientos con camilla preparada y toallas blancas' },
-    { src: fotoProductos, alt: 'Productos de cuidado facial en frascos de cristal sobre una superficie clara' },
-    { src: fotoManos, alt: 'Manos con manicura natural y uñas bien cuidadas' },
-    { src: fotoGaleriaFacial, alt: 'Esteticista aplicando una mascarilla facial con pincel' },
-    { src: fotoDetalle, alt: 'Detalle de toallas enrolladas y una rama seca sobre una bandeja' },
+    { src: fotoLocal, alt: 'Pasillo de Lumen con paredes blancas con molduras, cuadros botánicos y un rincón de espera con sillón blanco' },
+    { src: fotoCabina, alt: 'Cabina de tratamientos con camilla vestida en tonos beige, paredes de madera y una gran ventana luminosa' },
+    { src: fotoProductos, alt: 'Frasco cuentagotas de cristal ámbar con sérum sobre un pedestal de madera, con sombras de hojas en la pared' },
+    { src: fotoManos, alt: 'Mano con manicura natural en tono beige y un anillo dorado fino' },
+    { src: fotoGaleriaFacial, alt: 'Primer plano de un rostro con espuma limpiadora mientras se aplica con pincel durante una limpieza facial' },
+    { src: fotoDetalle, alt: 'Toallas enrolladas en tono topo sobre una camilla, junto a una vela encendida y un jarrón de cerámica' },
   ] satisfies Foto[],
 };
 
