@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#F3ECE3"/>
+  <!-- Manzanas -->
+  <g fill="#EADFD3">
+    <rect x="40" y="40" width="250" height="140" rx="10"/>
+    <rect x="40" y="220" width="250" height="160" rx="10"/>
+    <rect x="40" y="420" width="250" height="140" rx="10"/>
+    <rect x="390" y="40" width="160" height="140" rx="10"/>
+    <rect x="390" y="220" width="160" height="160" rx="10"/>
+    <rect x="390" y="420" width="160" height="140" rx="10"/>
+    <rect x="590" y="40" width="170" height="140" rx="10"/>
+    <rect x="590" y="220" width="170" height="160" rx="10"/>
+    <rect x="590" y="420" width="170" height="140" rx="10"/>
+  </g>
+  <!-- Parque -->
+  <rect x="600" y="430" width="150" height="120" rx="10" fill="#DCE3CF"/>
+  <!-- Calles secundarias -->
+  <g stroke="#FFFFFF" stroke-width="22" stroke-linecap="round">
+    <line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="400" x2="800" y2="400"/>
+    <line x1="570" y1="0" x2="570" y2="600"/>
+  </g>
+  <!-- Calle de Fuencarral -->
+  <line x1="340" y1="0" x2="340" y2="600" stroke="#FFFFFF" stroke-width="46"/>
+  <line x1="340" y1="0" x2="340" y2="600" stroke="#E8D5CC" stroke-width="4" stroke-dasharray="14 14"/>
+  <text x="352" y="560" transform="rotate(-90 352 560)" font-family="Georgia, 'Times New Roman', serif" font-size="22" fill="#5E5552" letter-spacing="1">Calle de Fuencarral</text>
+  <!-- Marcador -->
+  <g transform="translate(390 300)">
+    <ellipse cx="0" cy="58" rx="22" ry="7" fill="#2B2522" opacity=".18"/>
+    <path d="M0 58C-6 46-34 18-34-4a34 34 0 0 1 68 0C34 18 6 46 0 58Z" fill="#2B2522"/>
+    <circle cx="0" cy="-4" r="13" fill="#C8A27A"/>
+  </g>
+  <g transform="translate(440 262)">
+    <rect width="150" height="56" rx="14" fill="#FFFFFF" stroke="#E8D5CC"/>
+    <text x="20" y="36" font-family="Georgia, 'Times New Roman', serif" font-size="24" fill="#2B2522">Lumen</text>
+    <text x="102" y="36" font-family="Arial, sans-serif" font-size="18" fill="#7D5F3E">48</text>
+  </g>
+</svg>

@@ -1,0 +1,70 @@
+---
+import { trust } from '../data/site';
+---
+
+<section class="trust" aria-label={trust.label}>
+  <div class="container">
+    <ul role="list" class="trust__list">
+      {trust.items.map((item) => <li>{item}</li>)}
+    </ul>
+    {trust.note && <p class="trust__note">{trust.note}</p>}
+  </div>
+</section>
+
+<style>
+  .trust {
+    padding-block: var(--space-lg);
+    margin-top: var(--space-xl);
+    border-block: 1px solid var(--color-border);
+  }
+
+  .trust__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-xs) var(--space-xl);
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    text-align: center;
+  }
+
+  .trust__list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  .trust__list li + li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    margin-left: calc(-1 * var(--space-xl) / 2 - 3px);
+    margin-right: calc(-1 * var(--space-xl) / 2 + 3px);
+    border-radius: 50%;
+    background: var(--color-accent);
+  }
+
+  .trust__note {
+    margin-top: var(--space-xs);
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+    text-align: center;
+  }
+
+  @media (max-width: 29.99rem) {
+    .trust__list {
+      flex-direction: column;
+      gap: var(--space-2xs);
+    }
+
+    .trust__list li + li::before {
+      display: none;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .trust {
+      margin-top: 0;
+    }
+  }
+</style>

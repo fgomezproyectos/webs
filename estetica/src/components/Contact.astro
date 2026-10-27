@@ -1,0 +1,187 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { address, contact, contactSection, hours, ui, whatsappUrl } from '../data/site';
+---
+
+<section class="section section--tinted" id={contactSection.id} aria-labelledby="contacto-title">
+  <div class="container contact">
+    <div class="contact__info">
+      <header class="section__header reveal">
+        <p class="eyebrow">{contactSection.eyebrow}</p>
+        <h2 id="contacto-title">{contactSection.title}</h2>
+        <p class="lead">{contactSection.intro}</p>
+      </header>
+
+      <div class="contact__blocks">
+        <div class="contact__block">
+          <h3 class="contact__label">
+            <Icon name="pin" size={20} />
+            {contactSection.addressLabel}
+          </h3>
+          <address class="contact__address">{address.display}</address>
+        </div>
+
+        <div class="contact__block">
+          <h3 class="contact__label">
+            <Icon name="clock" size={20} />
+            {contactSection.hoursLabel}
+          </h3>
+          <dl class="contact__hours">
+            {
+              hours.map((row) => (
+                <div>
+                  <dt>{row.label}</dt>
+                  <dd>{row.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </div>
+
+      <div class="contact__actions">
+        <a class="button" href={contact.phoneHref} aria-label={ui.callAria.replace('{telefono}', contact.phoneDisplay)}>
+          <Icon name="phone" />
+          {contactSection.buttons.call}
+        </a>
+        <a class="button" href={whatsappUrl()} target="_blank" rel="noopener" aria-label={`${contactSection.buttons.whatsapp}: ${ui.bookAria} ${ui.newTab}`}>
+          <Icon name="whatsapp" />
+          {contactSection.buttons.whatsapp}
+        </a>
+        <a class="button button--ghost" href={contact.emailHref} aria-label={ui.emailAria.replace('{email}', contact.emailDisplay)}>
+          <Icon name="mail" />
+          {contact.emailDisplay}
+        </a>
+        {
+          contact.instagram && (
+            <a class="button button--ghost" href={contact.instagram} target="_blank" rel="noopener" aria-label={`${contactSection.instagramLabel} ${ui.newTab}`}>
+              <Icon name="instagram" />
+              {contactSection.instagramLabel}
+            </a>
+          )
+        }
+      </div>
+    </div>
+
+    <a class="contact__map reveal" href={address.mapUrl} target="_blank" rel="noopener">
+      <Image src={address.mapImage.src} alt={address.mapImage.alt} class="contact__map-image" />
+      <span class="contact__map-cta">
+        {contactSection.mapCta}
+        <Icon name="external" size={18} />
+        <span class="visually-hidden">{ui.newTab}</span>
+      </span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .contact {
+    display: grid;
+    gap: var(--space-2xl);
+  }
+
+  .contact .section__header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .contact__blocks {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  .contact__label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-xs);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: 600;
+  }
+
+  .contact__label :global(svg) {
+    color: var(--color-accent-text);
+  }
+
+  .contact__address {
+    font-size: var(--text-lg);
+    font-style: normal;
+  }
+
+  .contact__hours {
+    display: grid;
+    gap: var(--space-2xs);
+    margin: 0;
+  }
+
+  .contact__hours div {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-md);
+    max-width: 22rem;
+    padding-bottom: var(--space-2xs);
+    border-bottom: 1px dashed var(--color-secondary);
+  }
+
+  .contact__hours dd {
+    margin: 0;
+    white-space: nowrap;
+    font-weight: 600;
+  }
+
+  .contact__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-xl);
+  }
+
+  @media (max-width: 29.99rem) {
+    .contact__actions .button {
+      flex: 1 1 100%;
+    }
+  }
+
+  .contact__map {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    text-decoration: none;
+  }
+
+  .contact__map-image {
+    width: 100%;
+    height: auto;
+    transition: transform 0.4s var(--ease);
+  }
+
+  .contact__map:hover .contact__map-image {
+    transform: scale(1.02);
+  }
+
+  .contact__map-cta {
+    position: absolute;
+    right: var(--space-md);
+    bottom: var(--space-md);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-button);
+    color: var(--color-button-text);
+    font-weight: 600;
+  }
+
+  @media (min-width: 56rem) {
+    .contact {
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: var(--space-3xl);
+    }
+  }
+</style>

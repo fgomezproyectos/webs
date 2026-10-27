@@ -1,0 +1,95 @@
+---
+import Icon from './Icon.astro';
+import { reviews, ui } from '../data/site';
+---
+
+<section class="section" id={reviews.id} aria-labelledby="opiniones-title">
+  <div class="container">
+    <header class="section__header reveal">
+      <p class="eyebrow">{reviews.eyebrow}</p>
+      <h2 id="opiniones-title">{reviews.title}</h2>
+      <p class="reviews__label">{reviews.label}</p>
+    </header>
+
+    <ul role="list" class="reviews">
+      {
+        reviews.items.map((review) => (
+          <li class="review reveal">
+            <figure>
+              <p class="review__stars" role="img" aria-label={ui.stars.replace('{n}', String(review.rating))}>
+                {Array.from({ length: review.rating }).map(() => <Icon name="star" size={20} />)}
+              </p>
+              <blockquote class="review__text">
+                <p>«{review.text}»</p>
+              </blockquote>
+              <figcaption class="review__author">— {review.author}</figcaption>
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="reviews__cta">
+      <a class="button button--ghost" href={reviews.ctaUrl} target="_blank" rel="noopener" aria-label={`${reviews.cta} ${ui.newTab}`}>
+        {reviews.cta}
+        <Icon name="external" size={18} />
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviews__label {
+    justify-self: start;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .reviews {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .review figure {
+    display: grid;
+    gap: var(--space-md);
+    height: 100%;
+    margin: 0;
+    padding: var(--space-xl) var(--space-lg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+
+  .review__stars {
+    display: flex;
+    gap: 2px;
+    color: var(--color-accent-text);
+  }
+
+  .review__text {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    line-height: 1.45;
+  }
+
+  .review__author {
+    align-self: end;
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+
+  .reviews__cta {
+    margin-top: var(--space-xl);
+  }
+
+  @media (min-width: 56rem) {
+    .reviews {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

@@ -1,0 +1,98 @@
+---
+import { Picture } from 'astro:assets';
+import { team } from '../data/site';
+---
+
+<section class="section section--tinted" id={team.id} aria-labelledby="equipo-title">
+  <div class="container">
+    <header class="section__header reveal">
+      <p class="eyebrow">{team.eyebrow}</p>
+      <h2 id="equipo-title">{team.title}</h2>
+    </header>
+
+    <ul role="list" class="team">
+      {
+        team.members.map((member) => (
+          <li class="member reveal">
+            <Picture
+              src={member.photo.src}
+              alt={member.photo.alt}
+              widths={[320, 480, 640, 900]}
+              sizes="(min-width: 48rem) 22rem, calc(100vw - 2rem)"
+              formats={['avif', 'webp']}
+              class="member__photo"
+            />
+            <div class="member__body">
+              <h3 class="member__name">{member.name}</h3>
+              <p class="member__role">{member.role}</p>
+              <p class="member__details">
+                {member.specialty}
+                <br />
+                {member.experience}
+              </p>
+              <blockquote class="member__quote">
+                <p>«{member.quote}»</p>
+              </blockquote>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .team {
+    display: grid;
+    gap: var(--space-2xl);
+  }
+
+  .member {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .member__photo {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+  }
+
+  .member__body {
+    display: grid;
+    gap: var(--space-xs);
+  }
+
+  .member__role {
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+
+  .member__details {
+    color: var(--color-text-muted);
+  }
+
+  .member__quote {
+    margin: var(--space-sm) 0 0;
+    padding-left: var(--space-md);
+    border-left: 2px solid var(--color-accent);
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-style: italic;
+  }
+
+  @media (min-width: 48rem) {
+    .team {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-xl);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .member {
+      grid-template-columns: 15rem 1fr;
+      align-items: center;
+    }
+  }
+</style>

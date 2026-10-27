@@ -1,0 +1,64 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { address, business, contact, legal } from '../data/site';
+---
+
+<LegalLayout title="Aviso legal" description={`Aviso legal de ${business.name}: datos del titular, condiciones de uso y propiedad intelectual.`}>
+  <h2>1. Datos identificativos</h2>
+  <p>
+    En cumplimiento de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio
+    Electrónico (LSSI-CE), se informa de los datos del titular de este sitio web:
+  </p>
+  <ul>
+    <li>Nombre comercial: {business.name}</li>
+    <li>Titular: <span class="placeholder">{legal.owner}</span></li>
+    <li>NIF/CIF: <span class="placeholder">{legal.taxId}</span></li>
+    <li>Domicilio: {address.display}</li>
+    <li>Teléfono: <a href={contact.phoneHref}>{contact.phoneDisplay}</a></li>
+    <li>Email: <a href={contact.emailHref}>{contact.emailDisplay}</a></li>
+    <li>Registro: <span class="placeholder">{legal.registry}</span></li>
+  </ul>
+
+  <h2>2. Objeto</h2>
+  <p>
+    Este sitio web informa sobre los servicios de estética de {business.name} y permite contactar con el centro para
+    pedir cita. El acceso y el uso de la web implican la aceptación de este aviso legal.
+  </p>
+
+  <h2>3. Condiciones de uso</h2>
+  <p>
+    Te comprometes a usar la web y sus contenidos de forma lícita, sin dañar la imagen, los intereses ni los derechos de
+    {business.name} o de terceros, y sin realizar acciones que puedan dañar, inutilizar o sobrecargar el sitio.
+  </p>
+
+  <h2>4. Precios e información</h2>
+  <p>
+    Los precios mostrados incluyen el IVA. {business.name} puede actualizar sus tratamientos, precios y ofertas en
+    cualquier momento. La información de la web es orientativa y no sustituye el diagnóstico personalizado en el centro.
+  </p>
+
+  <h2>5. Propiedad intelectual e industrial</h2>
+  <p>
+    Los textos, el diseño y el logotipo de este sitio pertenecen a su titular o se usan con permiso. Las fotografías
+    proceden de bancos de imágenes con licencia de uso comercial. No está permitida su reproducción, distribución o
+    modificación sin autorización.
+  </p>
+
+  <h2>6. Enlaces externos</h2>
+  <p>
+    La web contiene enlaces a servicios de terceros, como WhatsApp o Google Maps. {business.name} no se responsabiliza de
+    sus contenidos ni de sus políticas de privacidad.
+  </p>
+
+  <h2>7. Responsabilidad</h2>
+  <p>
+    {business.name} no garantiza la ausencia de interrupciones o errores en el acceso a la web y no será responsable de
+    los daños que pudieran derivarse de ello, salvo en los casos previstos por la ley.
+  </p>
+
+  <h2>8. Legislación aplicable</h2>
+  <p>
+    Este aviso legal se rige por la legislación española. Para cualquier controversia, las partes se someten a los
+    juzgados y tribunales que correspondan conforme a la normativa vigente.
+  </p>
+</LegalLayout>
