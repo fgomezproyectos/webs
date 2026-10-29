@@ -35,7 +35,7 @@ export const business = {
   name: 'Lumen Estética',
   logo: 'Lumen',
   /** URL pública definitiva. Se usa en el sitemap, en Open Graph y en los datos estructurados. */
-  url: 'https://lumen-estetica.pages.dev',
+  url: 'https://lumen-estetica-5yc.pages.dev',
   lang: 'es',
   locale: 'es_ES',
   description:
