@@ -1,0 +1,41 @@
+---
+import { getImage } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import StatsBar from '../components/StatsBar.astro';
+import PainAreas from '../components/PainAreas.astro';
+import Treatments from '../components/Treatments.astro';
+import FirstVisit from '../components/FirstVisit.astro';
+import Pricing from '../components/Pricing.astro';
+import Team from '../components/Team.astro';
+import Reviews from '../components/Reviews.astro';
+import Faq from '../components/Faq.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import { physiotherapySchema } from '../lib/schema';
+import { seo } from '../data/site';
+
+const schemaImage = await getImage({ src: seo.image.src, width: 1200, height: 630, format: 'jpg', quality: 82 });
+const schema = physiotherapySchema(new URL(schemaImage.src, Astro.site).href);
+---
+
+<BaseLayout>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <Header />
+  <main id="contenido">
+    <Hero />
+    <StatsBar />
+    <PainAreas />
+    <Treatments />
+    <FirstVisit />
+    <Pricing />
+    <Team />
+    <Reviews />
+    <Faq />
+    <Contact />
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>

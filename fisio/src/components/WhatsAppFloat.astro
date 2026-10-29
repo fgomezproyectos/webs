@@ -1,0 +1,36 @@
+---
+import Icon from './Icon.astro';
+import { ui, whatsappUrl } from '../data/site';
+---
+
+<a class="wa-float" href={whatsappUrl()} target="_blank" rel="noopener" aria-label={`${ui.whatsappFloat} ${ui.newTab}`}>
+  <Icon name="whatsapp" size={30} />
+</a>
+
+<style>
+  /* Solo en el móvil, en la esquina: el pie deja hueco para que no tape nada. */
+  .wa-float {
+    position: fixed;
+    right: 1rem;
+    bottom: calc(1rem + env(safe-area-inset-bottom));
+    z-index: 40;
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgb(15 42 61 / 0.3);
+  }
+
+  .wa-float:hover {
+    background: var(--color-accent-hover);
+  }
+
+  @media (min-width: 56rem) {
+    .wa-float {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,71 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { business, legal } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<BaseLayout title={`${title} · ${business.name}`} description={description}>
+  <Header base="/" />
+  <main id="contenido" class="legal">
+    <article class="container legal__article">
+      <h1>{title}</h1>
+      <p class="legal__updated">Última actualización: {legal.lastUpdated}</p>
+      <slot />
+      <p class="legal__back"><a class="text-link" href="/">{legal.backLabel}</a></p>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .legal {
+    padding-block: var(--space-2xl) var(--space-3xl);
+  }
+
+  .legal__article {
+    max-width: 46rem;
+  }
+
+  .legal__article h1 {
+    font-size: var(--text-2xl);
+  }
+
+  .legal__updated {
+    margin: var(--space-sm) 0 var(--space-xl);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .legal__article :global(h2) {
+    margin: var(--space-2xl) 0 var(--space-sm);
+    font-size: var(--text-xl);
+  }
+
+  .legal__article :global(p),
+  .legal__article :global(ul) {
+    margin-bottom: var(--space-md);
+  }
+
+  .legal__article :global(li + li) {
+    margin-top: var(--space-2xs);
+  }
+
+  .legal__article :global(.placeholder) {
+    padding: 0 0.25em;
+    border-radius: var(--radius-sm);
+    background: #fdf1d8;
+  }
+
+  .legal__article :global(a) {
+    color: var(--color-accent-strong);
+    font-weight: 600;
+  }
+</style>

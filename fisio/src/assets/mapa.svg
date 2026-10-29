@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#F4F8F9"/>
+  <!-- Manzanas -->
+  <g fill="#E3ECEF">
+    <path d="M30 30h230l-60 150H30z"/>
+    <path d="M300 30h190v120H240z"/>
+    <path d="M530 30h240v95H530z"/>
+    <path d="M30 230h150l-70 170H30z"/>
+    <path d="M230 230h140v100H190z"/>
+    <path d="M530 175h240v120H530z"/>
+    <path d="M30 450h50l-30 120H30z"/>
+    <path d="M140 450h230v120H95z"/>
+    <path d="M420 400h110v170H420z"/>
+    <path d="M580 345h190v225H580z"/>
+  </g>
+  <!-- Parque -->
+  <rect x="600" y="370" width="150" height="180" rx="4" fill="#D5EBE4"/>
+  <circle cx="645" cy="420" r="16" fill="#BFE0D6"/>
+  <circle cx="700" cy="480" r="20" fill="#BFE0D6"/>
+  <circle cx="650" cy="515" r="12" fill="#BFE0D6"/>
+  <!-- Calles secundarias -->
+  <g stroke="#FFFFFF" stroke-width="22" stroke-linecap="square" fill="none">
+    <line x1="0" y1="205" x2="800" y2="205"/>
+    <line x1="0" y1="425" x2="560" y2="425"/>
+    <line x1="510" y1="0" x2="510" y2="320"/>
+    <line x1="400" y1="380" x2="400" y2="600"/>
+    <line x1="555" y1="320" x2="555" y2="600"/>
+    <line x1="510" y1="155" x2="800" y2="155"/>
+    <line x1="510" y1="320" x2="800" y2="320"/>
+  </g>
+  <!-- Calle de Alcalá (diagonal) -->
+  <line x1="290" y1="-20" x2="20" y2="640" stroke="#FFFFFF" stroke-width="52"/>
+  <line x1="290" y1="-20" x2="20" y2="640" stroke="#CFE2E4" stroke-width="3" stroke-dasharray="16 14"/>
+  <line x1="190" y1="355" x2="800" y2="355" stroke="#FFFFFF" stroke-width="38"/>
+  <text x="96" y="520" transform="rotate(-67.7 96 520)" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="700" fill="#45596A" letter-spacing="0.5">Calle de Alcalá</text>
+  <text x="600" y="345" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#6B7F8C">Metro</text>
+  <!-- Metro -->
+  <g transform="translate(560 334)">
+    <rect x="-14" y="-14" width="28" height="28" rx="4" fill="#0F2A3D"/>
+    <text x="0" y="6" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="800" fill="#FFFFFF">M</text>
+  </g>
+  <!-- Marcador -->
+  <g transform="translate(232 262)">
+    <circle r="46" fill="#0E7C7B" opacity="0.14"/>
+    <path d="M0 18s-24-21-24-39a24 24 0 0 1 48 0C24-3 0 18 0 18Z" transform="translate(0 -6)" fill="#0E7C7B"/>
+    <circle cy="-27" r="9" fill="#FFFFFF"/>
+  </g>
+  <g transform="translate(278 196)">
+    <rect width="200" height="58" rx="6" fill="#0F2A3D"/>
+    <text x="16" y="25" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="19" font-weight="800" fill="#FFFFFF">Axis Fisioterapia</text>
+    <text x="16" y="45" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#B9CBD6">Calle de Alcalá, 210</text>
+  </g>
+</svg>

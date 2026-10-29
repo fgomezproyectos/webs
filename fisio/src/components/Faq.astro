@@ -1,0 +1,75 @@
+---
+import Icon from './Icon.astro';
+import { faq } from '../data/site';
+---
+
+<section id={faq.id} class="section" aria-labelledby="preguntas-title">
+  <div class="container faq">
+    <div class="section__head">
+      <p class="eyebrow">{faq.eyebrow}</p>
+      <h2 id="preguntas-title" class="section__title">{faq.title}</h2>
+    </div>
+
+    <div class="faq__list">
+      {
+        faq.items.map((item) => (
+          <details class="faq__item">
+            <summary class="faq__question">
+              <span>{item.q}</span>
+              <Icon name="plus" size={22} class="faq__icon" />
+            </summary>
+            <p class="faq__answer">{item.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq__list {
+    max-width: 48rem;
+    border-top: 2px solid var(--color-text);
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .faq__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    min-height: 56px;
+    padding-block: var(--space-md);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .faq__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__question:hover {
+    color: var(--color-accent-strong);
+  }
+
+  .faq__question :global(.faq__icon) {
+    flex: none;
+    color: var(--color-accent);
+    transition: transform 0.2s ease;
+  }
+
+  .faq__item[open] :global(.faq__icon) {
+    transform: rotate(45deg);
+  }
+
+  .faq__answer {
+    max-width: 40rem;
+    padding-bottom: var(--space-lg);
+    color: var(--color-text-muted);
+  }
+</style>

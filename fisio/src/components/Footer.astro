@@ -1,0 +1,96 @@
+---
+import Logo from './Logo.astro';
+import { address, contact, footer, ui } from '../data/site';
+---
+
+<footer class="footer on-navy">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <Logo tone="light" />
+      <p class="footer__tagline">{footer.tagline}</p>
+      <p class="footer__contact">
+        {address.display}<br />
+        <a href={contact.phoneHref} aria-label={ui.callAria.replace('{telefono}', contact.phoneDisplay)}>{contact.phoneDisplay}</a>
+        <span aria-hidden="true">&nbsp;·&nbsp;</span>
+        <a href={contact.emailHref} aria-label={ui.emailAria.replace('{email}', contact.emailDisplay)}>{contact.emailDisplay}</a>
+      </p>
+    </div>
+
+    <nav aria-label={ui.legalNavLabel}>
+      <ul role="list" class="footer__links">
+        {
+          footer.legalLinks.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+  <div class="container">
+    <p class="footer__copy">{footer.copyright}</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    /* Espacio extra para que el botón flotante de WhatsApp no tape el pie en el móvil. */
+    padding-block: var(--space-2xl) calc(var(--space-2xl) + 4.5rem);
+    background: var(--color-navy);
+    color: var(--color-on-navy);
+  }
+
+  .footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-xl);
+  }
+
+  .footer__tagline {
+    margin-top: var(--space-sm);
+    color: var(--color-accent-light);
+    font-weight: 600;
+  }
+
+  .footer__contact {
+    margin-top: var(--space-md);
+    color: var(--color-on-navy-muted);
+    font-size: var(--text-sm);
+    line-height: 2;
+  }
+
+  .footer__contact a {
+    display: inline-block;
+    min-height: 24px;
+    color: var(--color-on-navy);
+  }
+
+  .footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--space-lg);
+  }
+
+  .footer__links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-weight: 600;
+  }
+
+  .footer__copy {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid rgb(255 255 255 / 0.18);
+    color: var(--color-on-navy-muted);
+    font-size: var(--text-sm);
+  }
+
+  @media (min-width: 56rem) {
+    .footer {
+      padding-bottom: var(--space-2xl);
+    }
+  }
+</style>

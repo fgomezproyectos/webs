@@ -1,0 +1,205 @@
+---
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+import { nav, ui, whatsappUrl } from '../data/site';
+
+interface Props {
+  /** Prefijo de los enlaces del menú: '' en la portada, '/' en el resto de páginas. */
+  base?: string;
+}
+
+const { base = '' } = Astro.props;
+---
+
+<header class="header">
+  <div class="container header__inner">
+    <a class="header__logo" href="/" aria-label={ui.homeLabel}><Logo /></a>
+
+    <nav class="header__nav" id="menu" aria-label={ui.navLabel} data-menu>
+      <ul role="list" class="header__links">
+        {
+          nav.map((item) => (
+            <li>
+              <a href={`${base}${item.href}`}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <a class="button button--small" href={whatsappUrl()} target="_blank" rel="noopener" aria-label={`${ui.bookAria} ${ui.newTab}`}>
+        {ui.book}
+      </a>
+      <button
+        class="header__toggle"
+        type="button"
+        aria-controls="menu"
+        aria-expanded="false"
+        hidden
+        data-menu-toggle
+        data-label-open={ui.menuOpen}
+        data-label-close={ui.menuClose}
+      >
+        <span class="visually-hidden" data-menu-label>{ui.menuOpen}</span>
+        <Icon name="menu" class="header__icon-open" />
+        <Icon name="close" class="header__icon-close" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Único JavaScript de la web: abrir y cerrar el menú en el móvil.
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+
+  if (toggle && menu) {
+    const label = toggle.querySelector('[data-menu-label]');
+    const mobile = window.matchMedia('(max-width: 55.99rem)');
+
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      menu.classList.toggle('is-open', open);
+      if (label) label.textContent = (open ? toggle.dataset.labelClose : toggle.dataset.labelOpen) ?? '';
+    };
+
+    toggle.hidden = false;
+    toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+    menu.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+    mobile.addEventListener('change', () => setOpen(false));
+  }
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: #ffffff;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .header__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0 var(--space-md);
+    min-height: var(--header-height);
+  }
+
+  .header__logo {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    text-decoration: none;
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+
+  .header__toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--color-text);
+    cursor: pointer;
+  }
+
+  .header__toggle[hidden] {
+    display: none;
+  }
+
+  .header__toggle :global(.header__icon-close),
+  .header__toggle[aria-expanded='true'] :global(.header__icon-open) {
+    display: none;
+  }
+
+  .header__toggle[aria-expanded='true'] :global(.header__icon-close) {
+    display: block;
+  }
+
+  .header__links {
+    display: flex;
+    gap: var(--space-2xs);
+  }
+
+  .header__links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: var(--space-sm);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .header__links a:hover {
+    color: var(--color-accent-strong);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+
+  /* Móvil sin JavaScript: el menú se muestra en una segunda fila. */
+  @media (max-width: 55.99rem) {
+    .header__nav {
+      order: 3;
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .header__links a {
+      padding-inline: var(--space-xs);
+    }
+
+    /* Con JavaScript: menú desplegable. */
+    :global(.js) .header__nav {
+      display: none;
+      padding-bottom: var(--space-md);
+    }
+
+    :global(.js) .header__nav.is-open {
+      display: block;
+    }
+
+    :global(.js) .header__links {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    :global(.js) .header__links a {
+      width: 100%;
+      min-height: 52px;
+      padding-inline: 0;
+      border-bottom: 1px solid var(--color-border);
+      font-size: var(--text-lg);
+    }
+  }
+
+  @media (min-width: 56rem) {
+    .header__toggle {
+      display: none !important;
+    }
+
+    .header__nav {
+      margin-left: auto;
+    }
+  }
+</style>

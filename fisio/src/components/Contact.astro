@@ -1,0 +1,180 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { address, contact, contactSection, hours, ui, whatsappUrl } from '../data/site';
+---
+
+<section id={contactSection.id} class="section section--block" aria-labelledby="contacto-title">
+  <div class="container contact">
+    <div class="contact__info">
+      <p class="eyebrow">{contactSection.eyebrow}</p>
+      <h2 id="contacto-title" class="section__title">{contactSection.title}</h2>
+      <p class="section__intro">{contactSection.intro}</p>
+
+      <div class="contact__blocks">
+        <div class="contact__block">
+          <h3 class="contact__label">
+            <Icon name="pin" size={20} />
+            {contactSection.addressLabel}
+          </h3>
+          <address class="contact__address">{address.display}</address>
+        </div>
+
+        <div class="contact__block">
+          <h3 class="contact__label">
+            <Icon name="clock" size={20} />
+            {contactSection.hoursLabel}
+          </h3>
+          <dl class="contact__hours">
+            {
+              hours.map((row) => (
+                <div class="contact__hours-row">
+                  <dt>{row.label}</dt>
+                  <dd>{row.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </div>
+
+      <h3 class="visually-hidden">{contactSection.channelsLabel}</h3>
+      <ul role="list" class="contact__actions">
+        <li>
+          <a class="button" href={whatsappUrl()} target="_blank" rel="noopener" aria-label={`${ui.bookAria} ${ui.newTab}`}>
+            <Icon name="whatsapp" size={20} />
+            {ui.whatsappLabel}
+          </a>
+        </li>
+        <li>
+          <a class="button button--outline" href={contact.phoneHref} aria-label={ui.callAria.replace('{telefono}', contact.phoneDisplay)}>
+            <Icon name="phone" size={20} />
+            {contact.phoneDisplay}
+          </a>
+        </li>
+        <li>
+          <a class="button button--outline" href={contact.emailHref} aria-label={ui.emailAria.replace('{email}', contact.emailDisplay)}>
+            <Icon name="mail" size={20} />
+            {contact.emailDisplay}
+          </a>
+        </li>
+        {
+          contact.instagram && (
+            <li>
+              <a class="button button--outline" href={contact.instagram} target="_blank" rel="noopener" aria-label={`${ui.instagramLabel} ${ui.newTab}`}>
+                <Icon name="instagram" size={20} />
+                {ui.instagramLabel}
+              </a>
+            </li>
+          )
+        }
+      </ul>
+    </div>
+
+    <a class="contact__map" href={address.mapUrl} target="_blank" rel="noopener" aria-label={`${ui.mapAria} ${ui.newTab}`}>
+      <Image src={address.mapImage.src} alt={address.mapImage.alt} width={800} height={600} loading="lazy" />
+      <span class="contact__map-cta" aria-hidden="true">
+        {ui.mapCta}
+        <Icon name="external" size={18} />
+      </span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .contact {
+    display: grid;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  .contact__blocks {
+    display: grid;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .contact__label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-xs);
+    color: var(--color-accent-strong);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .contact__address {
+    font-size: var(--text-lg);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .contact__hours-row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-md);
+    max-width: 22rem;
+    padding-block: var(--space-2xs);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .contact__hours dd {
+    font-weight: 700;
+  }
+
+  .contact__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-xl);
+  }
+
+  .contact__map {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: #ffffff;
+  }
+
+  .contact__map :global(img) {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .contact__map-cta {
+    position: absolute;
+    right: var(--space-md);
+    bottom: var(--space-md);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    background: var(--color-navy);
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .contact__map:hover .contact__map-cta {
+    background: var(--color-accent-hover);
+  }
+
+  @media (min-width: 40rem) {
+    .contact__blocks {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .contact {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

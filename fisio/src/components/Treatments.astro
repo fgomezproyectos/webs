@@ -1,0 +1,102 @@
+---
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import { treatments, ui, whatsappUrl } from '../data/site';
+---
+
+<section id={treatments.id} class="section section--block" aria-labelledby="tratamientos-title">
+  <div class="container">
+    <div class="section__head">
+      <p class="eyebrow">{treatments.eyebrow}</p>
+      <h2 id="tratamientos-title" class="section__title">{treatments.title}</h2>
+      <p class="section__intro">{treatments.intro}</p>
+    </div>
+
+    <ul role="list" class="treatments">
+      {
+        treatments.items.map((item) => (
+          <li class="treatment">
+            <Picture
+              src={item.image.src}
+              alt={item.image.alt}
+              formats={['avif', 'webp']}
+              widths={[400, 640, 800]}
+              sizes="(min-width: 64rem) 22rem, (min-width: 40rem) 45vw, 100vw"
+              loading="lazy"
+              class="treatment__img"
+            />
+            <div class="treatment__body">
+              <h3 class="treatment__name">{item.name}</h3>
+              <p class="treatment__text">{item.text}</p>
+              <a
+                class="text-link treatment__link"
+                href={whatsappUrl(item.name)}
+                target="_blank"
+                rel="noopener"
+                aria-label={`${ui.bookReasonAria.replace('{motivo}', item.name.toLowerCase())} ${ui.newTab}`}
+              >
+                {treatments.cta}
+                <Icon name="arrow" size={18} />
+              </a>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .treatments {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .treatment {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--radius);
+    background: #ffffff;
+    box-shadow: var(--shadow);
+  }
+
+  .treatment :global(img) {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .treatment__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: var(--space-lg);
+  }
+
+  .treatment__name {
+    font-size: var(--text-lg);
+  }
+
+  .treatment__text {
+    margin-top: var(--space-xs);
+    color: var(--color-text-muted);
+  }
+
+  .treatment__link {
+    margin-top: auto;
+    padding-top: var(--space-sm);
+  }
+
+  @media (min-width: 40rem) {
+    .treatments {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .treatments {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
