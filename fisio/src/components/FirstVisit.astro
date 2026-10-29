@@ -1,0 +1,73 @@
+---
+import { firstVisit } from '../data/site';
+---
+
+<section id={firstVisit.id} class="section" aria-labelledby="visita-title">
+  <div class="container">
+    <div class="section__head">
+      <p class="eyebrow">{firstVisit.eyebrow}</p>
+      <h2 id="visita-title" class="section__title">{firstVisit.title}</h2>
+    </div>
+
+    <ol role="list" class="steps">
+      {
+        firstVisit.steps.map((step, index) => (
+          <li class="step">
+            <span class="step__number" aria-hidden="true">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <h3 class="step__title">
+              <span class="visually-hidden">{firstVisit.stepLabel.replace('{n}', String(index + 1))} </span>
+              {step.title}
+            </h3>
+            <p class="step__text">{step.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .steps {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  .step {
+    padding-top: var(--space-md);
+    border-top: 2px solid var(--color-text);
+  }
+
+  .step__number {
+    display: block;
+    color: var(--color-accent);
+    font-size: var(--text-stat);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .step__title {
+    margin-top: var(--space-sm);
+    font-size: var(--text-lg);
+  }
+
+  .step__text {
+    margin-top: var(--space-xs);
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 40rem) {
+    .steps {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .steps {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-lg);
+    }
+  }
+</style>

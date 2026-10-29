@@ -1,0 +1,93 @@
+---
+import Icon from './Icon.astro';
+import { painAreas, ui, whatsappUrl } from '../data/site';
+---
+
+<section id={painAreas.id} class="section" aria-labelledby="dolencias-title">
+  <div class="container">
+    <div class="section__head">
+      <p class="eyebrow">{painAreas.eyebrow}</p>
+      <h2 id="dolencias-title" class="section__title">{painAreas.title}</h2>
+      <p class="section__intro">{painAreas.intro}</p>
+    </div>
+
+    <ul role="list" class="areas">
+      {
+        painAreas.items.map((area) => (
+          <li class="area">
+            <span class="area__icon">
+              <Icon name={area.icon} size={28} />
+            </span>
+            <h3 class="area__name">{area.name}</h3>
+            <p class="area__text">{area.text}</p>
+            <a
+              class="text-link area__link"
+              href={whatsappUrl(area.name)}
+              target="_blank"
+              rel="noopener"
+              aria-label={`${ui.bookReasonAria.replace('{motivo}', area.name.toLowerCase())} ${ui.newTab}`}
+            >
+              {painAreas.cta}
+              <Icon name="arrow" size={18} />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .areas {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .area {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-lg);
+    border: 1px solid var(--color-border);
+    border-top: 4px solid var(--color-accent);
+    border-radius: var(--radius-sm);
+    background: #ffffff;
+  }
+
+  .area__icon {
+    display: inline-grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    margin-bottom: var(--space-md);
+    border-radius: var(--radius);
+    background: var(--color-block);
+    color: var(--color-accent-strong);
+  }
+
+  .area__name {
+    font-size: var(--text-lg);
+  }
+
+  .area__text {
+    margin-top: var(--space-xs);
+    color: var(--color-text-muted);
+  }
+
+  .area__link {
+    margin-top: auto;
+    padding-top: var(--space-sm);
+  }
+
+  @media (min-width: 40rem) {
+    .areas {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .areas {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+    }
+  }
+</style>

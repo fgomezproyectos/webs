@@ -1,0 +1,106 @@
+---
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import { hero, ui, whatsappUrl } from '../data/site';
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__text">
+    <p class="eyebrow">{hero.eyebrow}</p>
+    <h1 id="hero-title" class="hero__title">{hero.title}</h1>
+    <p class="hero__subtitle">{hero.subtitle}</p>
+    <div class="hero__actions">
+      <a class="button" href={whatsappUrl()} target="_blank" rel="noopener" aria-label={`${ui.bookAria} ${ui.newTab}`}>
+        <Icon name="whatsapp" size={20} />
+        {hero.primaryCta}
+      </a>
+      <a class="button button--outline" href={hero.secondaryCta.href}>{hero.secondaryCta.label}</a>
+    </div>
+  </div>
+
+  <div class="hero__media">
+    <Picture
+      src={hero.image.src}
+      alt={hero.image.alt}
+      formats={['avif', 'webp']}
+      widths={[480, 720, 960, 1280]}
+      sizes="(min-width: 56rem) 50vw, 100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="hero__img"
+    />
+  </div>
+</section>
+
+<style>
+  .hero {
+    display: grid;
+    background: #ffffff;
+  }
+
+  .hero__text {
+    padding: var(--space-2xl) 1.25rem var(--space-2xl);
+  }
+
+  .hero__title {
+    max-width: 14ch;
+    font-size: var(--text-3xl);
+    letter-spacing: -0.035em;
+  }
+
+  .hero__subtitle {
+    max-width: 36rem;
+    margin-top: var(--space-lg);
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+    font-weight: 500;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-xl);
+  }
+
+  .hero__media {
+    position: relative;
+    background: var(--color-block);
+  }
+
+  .hero__media :global(img) {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: 50% 12%;
+  }
+
+  @media (min-width: 56rem) {
+    .hero {
+      grid-template-columns: 1fr 1fr;
+      min-height: min(44rem, calc(100svh - var(--header-height)));
+    }
+
+    .hero__text {
+      align-self: center;
+      /* Alinea el texto con el contenedor del resto de secciones. */
+      padding-block: var(--space-3xl);
+      padding-inline: max(1.25rem, calc((100vw - var(--container)) / 2)) var(--space-2xl);
+    }
+
+    .hero__media {
+      border-left: 6px solid var(--color-accent);
+    }
+
+    .hero__media :global(picture),
+    .hero__media :global(img) {
+      height: 100%;
+    }
+
+    .hero__media :global(img) {
+      aspect-ratio: auto;
+      position: absolute;
+      inset: 0;
+    }
+  }
+</style>

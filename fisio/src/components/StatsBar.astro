@@ -1,0 +1,75 @@
+---
+import { stats } from '../data/site';
+---
+
+<section class="stats on-navy" aria-label={stats.label}>
+  <div class="container">
+    <ul role="list" class="stats__list">
+      {
+        stats.items.map((item) => (
+          <li class="stats__item">
+            <span class="stats__value">{item.value}</span>
+            <span class="stats__label">{item.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+    {stats.note && <p class="stats__note">{stats.note}</p>}
+  </div>
+</section>
+
+<style>
+  .stats {
+    padding-block: var(--space-xl);
+    background: var(--color-navy);
+    color: var(--color-on-navy);
+  }
+
+  .stats__list {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .stats__item {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-sm);
+  }
+
+  .stats__value {
+    flex: none;
+    min-width: 6.5ch;
+    color: var(--color-accent-light);
+    font-size: var(--text-stat);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .stats__label {
+    font-size: var(--text-lg);
+    font-weight: 600;
+  }
+
+  .stats__note {
+    margin-top: var(--space-lg);
+    color: var(--color-on-navy-muted);
+    font-size: var(--text-xs);
+  }
+
+  @media (min-width: 48rem) {
+    .stats__list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .stats__item {
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .stats__item + .stats__item {
+      padding-left: var(--space-xl);
+      border-left: 1px solid rgb(255 255 255 / 0.18);
+    }
+  }
+</style>

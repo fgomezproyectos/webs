@@ -1,0 +1,114 @@
+---
+import { Picture } from 'astro:assets';
+import { team } from '../data/site';
+---
+
+<section id={team.id} class="section" aria-labelledby="equipo-title">
+  <div class="container">
+    <div class="section__head">
+      <p class="eyebrow">{team.eyebrow}</p>
+      <h2 id="equipo-title" class="section__title">{team.title}</h2>
+    </div>
+
+    <ul role="list" class="team">
+      {
+        team.members.map((member) => (
+          <li class="member">
+            <Picture
+              src={member.image.src}
+              alt={member.image.alt}
+              formats={['avif', 'webp']}
+              widths={[360, 540, 720]}
+              sizes="(min-width: 64rem) 22rem, (min-width: 40rem) 45vw, 100vw"
+              loading="lazy"
+              class="member__img"
+            />
+            <div class="member__body">
+              <h3 class="member__name">{member.name}</h3>
+              <p class="member__role">{member.role}</p>
+              <p class="member__specialty">{member.specialty}</p>
+              <ul role="list" class="member__facts">
+                <li>{team.experienceLabel.replace('{n}', String(member.years))}</li>
+                <li>{member.license}</li>
+              </ul>
+              <blockquote class="member__quote">
+                <p>«{member.quote}»</p>
+              </blockquote>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .team {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  .member {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .member :global(img) {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+
+  .member__body {
+    padding-top: var(--space-md);
+  }
+
+  .member__name {
+    font-size: var(--text-xl);
+  }
+
+  .member__role {
+    color: var(--color-accent-strong);
+    font-weight: 700;
+  }
+
+  .member__specialty {
+    margin-top: var(--space-xs);
+  }
+
+  .member__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-top: var(--space-sm);
+    font-size: var(--text-sm);
+  }
+
+  .member__facts li {
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-block);
+    font-weight: 600;
+  }
+
+  .member__quote {
+    margin-top: var(--space-md);
+    padding-left: var(--space-md);
+    border-left: 3px solid var(--color-accent);
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  @media (min-width: 40rem) {
+    .team {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .team {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

@@ -1,0 +1,111 @@
+---
+import Icon from './Icon.astro';
+import { address, reviews, ui } from '../data/site';
+---
+
+<section id={reviews.id} class="section section--block" aria-labelledby="opiniones-title">
+  <div class="container">
+    <div class="reviews__head">
+      <div class="section__head">
+        <p class="eyebrow">{reviews.eyebrow}</p>
+        <h2 id="opiniones-title" class="section__title">{reviews.title}</h2>
+        <p class="reviews__label">{reviews.label}</p>
+      </div>
+      <a class="button button--outline" href={address.mapUrl} target="_blank" rel="noopener" aria-label={`${reviews.cta} ${ui.newTab}`}>
+        {reviews.cta}
+        <Icon name="external" size={18} />
+      </a>
+    </div>
+
+    <ul role="list" class="reviews">
+      {
+        reviews.items.map((review) => (
+          <li>
+            <figure class="review">
+              <p class="review__stars" role="img" aria-label={ui.stars.replace('{n}', String(review.rating))}>
+                {Array.from({ length: review.rating }, () => (
+                  <Icon name="star" size={18} />
+                ))}
+              </p>
+              <blockquote class="review__text">
+                <p>«{review.text}»</p>
+              </blockquote>
+              <figcaption class="review__author">— {review.author}</figcaption>
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .reviews__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-md) var(--space-xl);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .reviews__head .section__head {
+    margin-bottom: 0;
+  }
+
+  .reviews__label {
+    display: inline-block;
+    margin-top: var(--space-sm);
+    padding: 0.15rem 0.6rem;
+    border: 1px solid var(--color-text-muted);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    font-weight: 700;
+  }
+
+  .reviews {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .reviews > li {
+    display: flex;
+  }
+
+  .review {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: var(--space-lg);
+    border-radius: var(--radius);
+    background: #ffffff;
+    box-shadow: var(--shadow);
+  }
+
+  .review__stars {
+    display: flex;
+    gap: 2px;
+    color: var(--color-star);
+  }
+
+  .review__text {
+    margin-top: var(--space-sm);
+    font-size: var(--text-lg);
+    font-weight: 500;
+  }
+
+  .review__author {
+    margin-top: auto;
+    padding-top: var(--space-md);
+    color: var(--color-text-muted);
+    font-weight: 700;
+  }
+
+  @media (min-width: 56rem) {
+    .reviews {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+    }
+  }
+</style>

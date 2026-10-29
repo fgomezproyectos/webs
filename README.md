@@ -5,3 +5,4 @@ Webs de demostración para negocios locales. Cada carpeta es un proyecto indepen
 | Carpeta | Web |
 | --- | --- |
 | `estetica/` | Lumen Estética, centro de estética (Astro) |
+| `fisio/` | Axis Fisioterapia, centro de fisioterapia (Astro) |

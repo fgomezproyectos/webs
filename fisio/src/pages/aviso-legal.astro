@@ -1,0 +1,96 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { address, business, contact, legal, team } from '../data/site';
+---
+
+<LegalLayout title="Aviso legal" description={`Aviso legal de ${business.name}: titular, datos sanitarios y profesionales, y condiciones de uso de la web.`}>
+  <h2>1. Datos identificativos</h2>
+  <p>
+    En cumplimiento de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio
+    Electrónico (LSSI-CE), se informa de los datos del titular de este sitio web:
+  </p>
+  <ul>
+    <li>Nombre comercial: {business.name}</li>
+    <li>Titular: <span class="placeholder">{legal.owner}</span></li>
+    <li>NIF/CIF: <span class="placeholder">{legal.taxId}</span></li>
+    <li>Domicilio: {address.display}</li>
+    <li>Teléfono: <a href={contact.phoneHref}>{contact.phoneDisplay}</a></li>
+    <li>Email: <a href={contact.emailHref}>{contact.emailDisplay}</a></li>
+    <li>Registro: <span class="placeholder">{legal.registry}</span></li>
+  </ul>
+
+  <h2>2. Centro sanitario y profesión regulada</h2>
+  <p>
+    {business.name} es un centro sanitario de fisioterapia. La fisioterapia es una profesión sanitaria titulada y
+    regulada (Ley 44/2003, de ordenación de las profesiones sanitarias), y su ejercicio exige estar colegiado.
+  </p>
+  <ul>
+    <li>Registro sanitario del centro: <span class="placeholder">{legal.healthRegistry}</span></li>
+    <li>Titulación de los profesionales: {legal.professionalTitle}</li>
+    <li>
+      Colegio profesional:
+      <a href={legal.professionalBody.url} target="_blank" rel="noopener">{legal.professionalBody.name}</a>, donde puedes
+      consultar las normas deontológicas de la profesión.
+    </li>
+  </ul>
+  <p>Profesionales del centro y número de colegiado:</p>
+  <ul>
+    {
+      team.members.map((member) => (
+        <li>
+          {member.name}, {member.role.toLowerCase()}. N.º de colegiado: <span class="placeholder">{legal.memberLicense}</span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2>3. Objeto</h2>
+  <p>
+    Esta web informa sobre los servicios de fisioterapia de {business.name} y permite contactar con el centro para pedir
+    cita. El acceso y el uso de la web implican la aceptación de este aviso legal.
+  </p>
+
+  <h2>4. Información sanitaria</h2>
+  <p>
+    Los contenidos de esta web son informativos y no sustituyen la valoración individual de un profesional sanitario. El
+    resultado de cada tratamiento depende de cada persona y de su situación, por lo que no se garantizan resultados
+    concretos.
+  </p>
+
+  <h2>5. Condiciones de uso</h2>
+  <p>
+    Te comprometes a usar la web y sus contenidos de forma lícita, sin dañar la imagen, los intereses ni los derechos de
+    {business.name} o de terceros, y sin realizar acciones que puedan dañar, inutilizar o sobrecargar el sitio.
+  </p>
+
+  <h2>6. Precios</h2>
+  <p>
+    Los precios mostrados incluyen el IVA cuando corresponde. {business.name} puede actualizar sus servicios y tarifas en
+    cualquier momento.
+  </p>
+
+  <h2>7. Propiedad intelectual e industrial</h2>
+  <p>
+    Los textos, el diseño y el logotipo de este sitio pertenecen a su titular o se usan con permiso. Las fotografías
+    proceden de bancos de imágenes con licencia de uso comercial. No está permitida su reproducción, distribución o
+    modificación sin autorización.
+  </p>
+
+  <h2>8. Enlaces externos</h2>
+  <p>
+    La web contiene enlaces a servicios de terceros, como WhatsApp o Google Maps. {business.name} no se responsabiliza de
+    sus contenidos ni de sus políticas de privacidad.
+  </p>
+
+  <h2>9. Responsabilidad</h2>
+  <p>
+    {business.name} no garantiza la ausencia de interrupciones o errores en el acceso a la web y no será responsable de
+    los daños que pudieran derivarse de ello, salvo en los casos previstos por la ley.
+  </p>
+
+  <h2>10. Legislación aplicable</h2>
+  <p>
+    Este aviso legal se rige por la legislación española. Para cualquier controversia, las partes se someten a los
+    juzgados y tribunales que correspondan conforme a la normativa vigente.
+  </p>
+</LegalLayout>

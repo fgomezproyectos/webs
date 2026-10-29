@@ -1,0 +1,283 @@
+/* ------------------------------------------------------------------ */
+/* Variables: cambia aquí la paleta, la tipografía y los espaciados    */
+/* ------------------------------------------------------------------ */
+
+:root {
+  /* Paleta «clínico moderno» */
+  --color-bg: #ffffff;
+  --color-text: #0f2a3d;
+  --color-text-muted: #45596a;
+  --color-accent: #0e7c7b;
+  /* Acento para texto sobre los bloques claros (contraste AA sobre #EAF4F4). */
+  --color-accent-strong: #0b6b6a;
+  --color-accent-hover: #0a6362;
+  /* Acento claro para usar sobre el azul marino. */
+  --color-accent-light: #7fd6d3;
+  --color-block: #eaf4f4;
+  --color-navy: #0f2a3d;
+  --color-on-navy: #ffffff;
+  --color-on-navy-muted: #b9cbd6;
+  --color-border: #d3e3e6;
+  --color-focus: #0e7c7b;
+  --color-star: #b45309;
+
+  /* Tipografía */
+  --font-sans: 'Plus Jakarta Sans Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.1875rem;
+  --text-xl: clamp(1.375rem, 1.2rem + 0.8vw, 1.625rem);
+  --text-2xl: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
+  --text-3xl: clamp(2.375rem, 1.6rem + 3.6vw, 4rem);
+  --text-stat: clamp(2.25rem, 1.7rem + 2.4vw, 3.25rem);
+
+  /* Espaciados */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: clamp(3.5rem, 2.5rem + 4vw, 6rem);
+
+  /* Radios: esquinas casi rectas */
+  --radius-sm: 4px;
+  --radius: 6px;
+
+  --container: 72rem;
+  --header-height: 4.25rem;
+  --shadow: 0 1px 2px rgb(15 42 61 / 0.06), 0 6px 20px rgb(15 42 61 / 0.06);
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + var(--space-md));
+}
+
+body {
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+h3 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+ul[role='list'],
+ol[role='list'] {
+  padding: 0;
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+.on-navy :focus-visible {
+  outline-color: var(--color-accent-light);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Utilidades y piezas comunes                                         */
+/* ------------------------------------------------------------------ */
+
+.container {
+  width: min(100% - 2.5rem, var(--container));
+  margin-inline: auto;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  top: var(--space-xs);
+  left: var(--space-xs);
+  z-index: 100;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  background: var(--color-navy);
+  color: var(--color-on-navy);
+  font-weight: 600;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+.section {
+  padding-block: var(--space-3xl);
+}
+
+.section--block {
+  background: var(--color-block);
+}
+
+.section__head {
+  max-width: 40rem;
+  margin-bottom: var(--space-2xl);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-sm);
+  color: var(--color-accent-strong);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 1.5rem;
+  height: 2px;
+  background: currentColor;
+}
+
+.section__title {
+  font-size: var(--text-2xl);
+}
+
+.section__intro {
+  margin-top: var(--space-sm);
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+}
+
+/* Botones: mínimo 44 px de alto */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  min-height: 48px;
+  padding: 0.75rem 1.375rem;
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius);
+  background: var(--color-accent);
+  color: #ffffff;
+  font-size: var(--text-base);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.button:hover {
+  border-color: var(--color-accent-hover);
+  background: var(--color-accent-hover);
+}
+
+.button--outline {
+  border-color: var(--color-text);
+  background: transparent;
+  color: var(--color-text);
+}
+
+.button--outline:hover {
+  border-color: var(--color-text);
+  background: var(--color-text);
+  color: #ffffff;
+}
+
+.button--small {
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  font-size: var(--text-sm);
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  min-height: 44px;
+  color: var(--color-accent-strong);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+}
+
+.text-link:hover {
+  color: var(--color-text);
+}

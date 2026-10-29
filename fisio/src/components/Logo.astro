@@ -1,0 +1,44 @@
+---
+import { business } from '../data/site';
+
+interface Props {
+  /** Color del texto: oscuro sobre fondo claro, claro sobre azul marino. */
+  tone?: 'dark' | 'light';
+}
+
+const { tone = 'dark' } = Astro.props;
+---
+
+<span class:list={['logo', `logo--${tone}`]}>
+  <svg class="logo__mark" width="14" height="30" viewBox="0 0 14 30" aria-hidden="true" focusable="false">
+    <rect x="5" y="0" width="4" height="30" rx="1.5" fill="currentColor" />
+    <circle cx="7" cy="15" r="5.5" fill="var(--logo-ring-bg)" stroke="currentColor" stroke-width="3" />
+  </svg>
+  <span class="logo__text">{business.logo}</span>
+</span>
+
+<style>
+  .logo {
+    --logo-ring-bg: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.625rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .logo__mark {
+    color: var(--color-accent);
+  }
+
+  .logo--light {
+    --logo-ring-bg: var(--color-navy);
+    color: var(--color-on-navy);
+  }
+
+  .logo--light .logo__mark {
+    color: var(--color-accent-light);
+  }
+</style>
